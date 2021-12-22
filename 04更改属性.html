@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>更改图片</title>
+</head>
+
+<body>
+    <button id="dyz">第一张</button>
+    <button id="d2z">第二张</button>
+    <img src="../css floder/img/img-1170px.png" alt="">
+    <script type="text/javascript">
+        var btn1 = document.getElementById('dyz');
+        var btn2 = document.getElementById('d2z');
+        var img = document.querySelector('img');
+        btn1.onclick = function() {
+            img.src = '../css floder/img/img-1170px.png';
+            img.title = 'first';
+        }
+        btn2.onclick = function() {
+            img.src = '../css floder/img/img-2170px.png';
+            img.title = 'first2';
+        }
+    </script>
+</body>
+
+</html>

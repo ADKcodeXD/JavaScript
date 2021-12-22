@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js dom初始</title>
+</head>
+
+<body>
+    <div id="id001">
+        this is my div;
+    </div>
+    <div class="box1"></div>
+    <div class="box1"></div>
+
+    <ul>
+        <li>这是第一个</li>
+        <li>第二个</li>
+        <li>第三个</li>
+        <li>第四个</li>
+        <li>第无个</li>
+    </ul>
+    <ol id="olol">
+        <li>dsadoa</li>
+        <li>fsafas</li>
+        <li>sfa</li>
+        <li>fasfa</li>
+        <li>fsafaf</li>
+    </ol>
+</body>
+<script type="text/javascript">
+    var element = document.getElementById("id001");
+    var litag = document.getElementsByTagName("li");
+    var li_list = document.getElementById('olol').getElementsByTagName('li');
+    var firstbox = document.querySelector('.box1');
+    var body = document.body;
+    var html = document.documentElement;
+    console.log(litag);
+</script>
+
+</html>
