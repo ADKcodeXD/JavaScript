@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>box</title>
+    <style>
+        .class1 {
+            width: 100px;
+            height: 100px;
+            background-color: deepskyblue;
+        }
+        
+        .class2 {
+            width: 200px;
+            height: 200px;
+            background-color: rgb(174, 241, 18);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="class1">
+
+    </div>
+    <script type="text/javascript">
+        var ele = document.querySelector('div');
+        ele.onclick = function() {
+            this.className = 'class2';
+        }
+    </script>
+</body>
+
+</html>

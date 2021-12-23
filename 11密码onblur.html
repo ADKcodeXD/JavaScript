@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>密码判断</title>
+    <style>
+        .box1 {
+            width: 400px;
+            height: 50px;
+            margin: 200px auto;
+        }
+        
+        .tips {
+            display: inline-block;
+            height: 24px;
+            line-height: 24px;
+            font-size: 16px;
+            text-align: center;
+            background-image: url(img/_提示.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            padding-left: 24px;
+        }
+        
+        .wrong {
+            color: red;
+            background-image: url(img/错误.png);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box1">
+        <input type="text" id="input">
+        <p class="tips" id="message">请输入6-16位的密码</p>
+    </div>
+    <script type="text/javascript">
+        var input = document.getElementById('input');
+        var mes = document.getElementById('message');
+        input.onblur = function() {
+            if (input.value.length < 6 || input.value.length > 16) {
+                mes.className = 'tips wrong';
+                mes.innerHTML = '您输入的密码条件错误'
+            } else {
+                mes.className = 'tips';
+
+            }
+        }
+    </script>
+</body>
+
+</html>

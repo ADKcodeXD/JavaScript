@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tab click</title>
+    <style>
+        .wrapper {
+            width: 400px;
+            margin: 0 auto;
+        }
+        
+        a {
+            text-decoration: none;
+            color: rgb(83, 0, 218);
+        }
+        
+        .box {
+            padding: 0;
+            list-style: none;
+            border-bottom: red 2px solid;
+            overflow: hidden;
+        }
+        
+        li {
+            width: 100px;
+            height: 30px;
+            float: left;
+            text-align: center;
+            line-height: 30px;
+            background-color: rgb(207, 207, 207);
+        }
+        
+        .hover {
+            color: rgb(255, 255, 255);
+            background-color: red;
+        }
+        
+        .des {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <ul class="box" id="ul-list">
+            <li class="hover">
+                <a href="#">商品介绍</a></li>
+            <li>
+                <a href="#">规格包装</a></li>
+            <li>
+                <a href="#">售后保障</a></li>
+            <li>
+                <a href="#">商品评价</a></li>
+        </ul>
+        <div class="des" style="display: block;">fkjsafnk</div>
+        <div class="des">sfafa</div>
+        <div class="des">fsafsa</div>
+        <div class="des">fsafasf</div>
+    </div>
+    <script type="text/javascript">
+        // 获取元素
+        var tab = document.querySelector('.box');
+        var tabs = tab.querySelectorAll('li');
+        var items = document.querySelectorAll('.des');
+        // 获取元素
+
+        // 循环绑定事件
+        for (var i = 0; i < tabs.length; i++) {
+            tabs[i].setAttribute("index", i);
+            tabs[i].onclick = function() {
+                // 设置互斥tab
+                for (var i = 0; i < tabs.length; i++) {
+                    tabs[i].className = '';
+                }
+                this.className = 'hover';
+                var index = this.getAttribute('index');
+                // 设置互斥tab
+
+
+                for (var i = 0; i < items.length; i++) {
+                    items[i].style.display = 'none';
+                }
+
+                items[index].style.display = 'block';
+            }
+        }
+        // 循环绑定事件
+    </script>
+</body>
+
+</html>

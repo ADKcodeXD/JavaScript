@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>放大镜</title>
+    <style>
+        .wrapper {
+            width: 200px;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .box1 {
+            width: 200px;
+            height: 30px;
+            display: none;
+            position: relative;
+            background-color: seashell;
+            box-shadow: 0px 0px 5px rgb(19, 19, 19, 0.4);
+            margin-bottom: 5px;
+            overflow: hidden;
+        }
+        
+        .box1::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: 27px;
+            left: 46px;
+            border: 10px solid transparent;
+            border-bottom: none solid 0px;
+            border-top-color: seashell;
+            border-style: solid;
+        }
+        
+        .box1 span {
+            display: block;
+            padding: 2px;
+            height: 100%;
+            line-height: 30px;
+            font-size: 24px;
+        }
+        
+        input {
+            position: absolute;
+            top: 40px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="box1">
+            <span>123</span>
+        </div>
+        <input type="text" placeholder="请输入你的单号" id="inputtag">
+    </div>
+    <script type="text/javascript">
+        var box1 = document.querySelector('.box1');
+        var input = document.querySelector('#inputtag');
+        input.addEventListener('keyup', function() {
+            if (input.value === '') {
+                box1.style.display = 'none';
+            } else {
+                box1.style.display = 'block';
+                box1.children[0].innerText = this.value;
+            }
+
+        });
+        input.addEventListener('blur', function() {
+            box1.style.display = 'none';
+        })
+    </script>
+</body>
+
+</html>

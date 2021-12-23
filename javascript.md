@@ -1221,6 +1221,471 @@ innerText会去除格式，去除标签，html不会，推荐使用HTML
 
 #### 分时操作
 
+思路 通过dategethour获取到当前时间，根据不同时间更改不同的图片或内容。
+
+
+
+#### 表单操作
+
+表单有专门代表内容的属性，value。表单中没有innnerText和HTML
+
+```js
+<input type="text" name="" id="" value="">
+    <button></button>
+    <script type="text/javascript">
+        var input=document.querySelector('input');
+        var btn=document.querySelector('button');
+        btn.onclick=function(){
+            input.value='当前被点击';
+            this.disabled=true;
+        }
+    </script>
+```
+
+
+
+**京东密码可见框小练习**
+
+思路：就是在点击label标签的时候更改图片路径和表单的类型即可。
+
+```js
+var eye = document.getElementById('img');
+        var input = document.getElementById('inner');
+        var flag = 1;
+        eye.onclick = function() {
+            if (flag == 0) {
+                input.type = 'password';
+                eye.src = 'img/密码可见.png'
+                flag = 1;
+            } else {
+                input.type = 'text';
+                eye.src = 'img/password.png'
+                flag = 0;
+            }
+        }
+```
+
+#### 样式的修改
+
+```js
+var div = document.querySelector('div');
+        div.onclick = function() {
+            this.style.backgroundColor = '#242424';
+        }
+```
+
+通过style属性中的样式名来进行修改。
+
+ #### 失去焦点和获得焦点
+
+```js
+var input = document.querySelector('input');
+        input.onfocus = function() {
+            input.placeholder = '';
+        }
+        input.onblur = function() {
+            input.placeholder = '手机';
+        }
+```
+
+#### 便捷的修改样式className
+
+适用于我们要修改很多样式的时候,可以提前写好一个用于修改的css类，我们直接指定新的类名即可。
+
+```js
+ele.onclick = function() {
+            this.className = 'class2';
+        }
+```
+
+这个操作会覆盖掉旧的类名，如果需要留下则空格后面加上新的类。
+
+
+
+#### 总结
+
+![image-20211223123808946](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211223123808946.png)
+
+### 互斥
+
+### 鼠标经过和离开
+
+### 全选逻辑的实现
+
+首先需要一个复选框，标记为全选
+
+```js
+var all = document.getElementById('all');
+        var tabs = document.getElementById('tabs').getElementsByTagName('input');
+        all.onclick = function() {
+            for (var i in tabs) {
+                tabs[i].checked = this.checked;
+            }
+        }
+```
+
+### 获取属性的另一种方法
+
+```js
+all.getAttribute
+```
+
+这种方法主要用于获取自定义的属性值，直接得到的属性一般是内置属性。我们需要获取我们自己定义的属性的话就要用这种方法来获取。
+
+同样的 我们要更改属性的话 就要用set方法来进行set。
+
+#### for ...in的使用错误认知
+
+js中的forin和java中的foreach是不同的用法，由于原型的存在，使用for in会出现未知的错误。
+
+### H5自定义属性
+
+平时我们可以在标签中设置一些自己定义的属性。
+
+同时，有两种方法可以获取，第一种就是getAttribute
+
+第二种是dataset，dataset可以获取data- 开头的属性
+
+### 节点操作
+
+节点操作是利用父子层级关系来进行获取元素的一种手段。逻辑性较强，但是兼容性会比较差。
+
+![image-20211223144017031](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211223144017031.png)
+
+使用parentNode或者childNodes，这种方法可以快速获取父子节点
+
+firstChild 获取第一个子节点。
+
+### 创建节点
+
+```html
+<ul>
+
+    </ul>
+    <script type="text/javascript">
+        var ul = document.querySelector('ul');
+        var li = document.createElement('li');
+        ul.appendChild(li);
+    </script>
+```
+
+像这样，就是把li标签插入到ul后面。
+
+而insertbefore就是插入前面。
+
+### 发布留言案例
+
+可以利用ul.append增加li
+
+来进行模拟聊天发送信息的感觉。
+
+```html
+<input type="text" value="" id="text">
+    <button id="btn">发送</button>
+    <ul>
+
+    </ul>
+    <script type="text/javascript">
+        var btn = document.getElementById('btn');
+        var textarea = document.getElementById('text');
+        var ul = document.querySelector('ul');
+        btn.onclick = function() {
+            if (textarea.value == '') {
+                alert("未输入！")
+            } else {
+                var li = document.createElement('li');
+                li.innerHTML = textarea.value;
+                ul.appendChild(li);
+                textarea.value = '';
+            }
+        }
+    </script>
+```
+
+同样的，可以删除留言。
+
+### 改进 删除留言
+
+```js
+<script type="text/javascript">
+        var btn = document.getElementById('btn');
+        var textarea = document.getElementById('text');
+        var ul = document.querySelector('ul');
+        btn.onclick = function() {
+            if (textarea.value == '') {
+                alert("未输入！")
+            } else {
+                var li = document.createElement('li');
+                li.innerHTML = textarea.value + "<a href='javascript:;'>删除</a>";
+                ul.insertBefore(li, ul.children[0]);
+                textarea.value = '';
+                // 删除 当前a所在的父亲li，也就是remove ul下的li
+                var as = document.querySelectorAll('a');
+                for (var i = 0; i < as.length; i++) {
+                    as[i].onclick = function() {
+                        ul.removeChild(this.parentNode);
+                    }
+                }
+
+            }
+        }
+    </script>
+```
+
+### 复制节点
+
+node.cloneNode()浅拷贝，这样做只复制标签，不复制里面的内容。
+
+node.cloneNode(true)深拷贝，这样做会将内容也一起复制
+
+### 动态生成表格案例
+
+```js
+<script type="text/javascript">
+        var datas = [{
+            name: 'abc',
+            subject: '数学',
+            score: 99
+        }, {
+            name: '王库洛',
+            subject: '英语',
+            score: 59
+        }, {
+            name: '张西数',
+            subject: '数学',
+            score: 31
+        }];
+        // 往tbody里面创建行
+        var tbody = document.querySelector('tbody');
+        for (var i = 0; i < datas.length; i++) {
+            var tr = document.createElement('tr');
+            tbody.appendChild(tr);
+            for (var k in datas[i]) {
+                var td = document.createElement('td');
+                td.innerHTML = datas[i][k];
+                tr.appendChild(td);
+            }
+            var lasta = document.createElement('td');
+            lasta.innerHTML = "<a href='javascript:;'>删除</a>";
+            tr.appendChild(lasta);
+        }
+        // 删除逻辑
+        var alist = document.querySelectorAll('a');
+        for (var i = 0; i < alist.length; i++) {
+            alist[i].onclick = function() {
+                tbody.removeChild(this.parentNode.parentNode);
+            }
+        }
+    </script>
+```
+
+![image-20211223163219323](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211223163219323.png)
+
+### 创建元素的几种方法（面试高频）
+
+write写入带标签的内容的时候也可以创建节点元素，但是会导致页面重绘。
+
+![image-20211223163959063](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211223163959063.png)
+
+innerHTML和createElement的区别，一个是采取拼接字符串的形式进行创建元素，一个是通过函数创建。
+
+```js
+var b=[];
+var element='<div>这是实例</div>'
+for(var i=0;i<100;i++){
+    b.push(element);
+}
+document.body.innerHTML=b.join('');
+//使用innerHTML数组形式创建元素
+for(var i=0;i<100;i++){
+    document.createElement('div');
+}
+```
+
+### DOM重点核心
+
+![image-20211223164751746](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211223164751746.png)
+
+实际上也是增删查改
+
+## 事件高级
+
+### 注册事件的两种方式
+
+之前所使用的的注册方式都是传统方式，但也有一种方法监听注册方式。
+
+传统的注册方式，具有唯一性。
+
+相比传统注册方式，有一种好的方法为addEventListener
+
+```js
+btn2.addEventListener('click', function() {
+            alert("dsadsa");
+        },)
+```
+
+这个有三个参数，第一个为事件类型，第二个即处理函数。
+
+同一个事件可以添加多个监听器。
+
+### 删除事件（解绑）
+
+传统的方式，只要把onclick=null，即可解绑
+
+```js
+btn2.addEventListener('click', fn);
+
+        function fn() {
+            alert(5);
+            btn2.removeEventListener('click', fn);
+        }
+```
+
+第二种方法的移除，我们不能移除一个匿名函数，因此要考虑到移除事件的话需要另外起名函数。
+
+### DOM事件流
+
+即指页面中接受事件的顺序。事件发生时会在元素节点直接按照特定的顺序进行传播。
+
+![image-20211223172018988](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211223172018988.png)
+
+**addEventListener的第三个参数**
+
+如果第三个参数处于true，即为捕获阶段。false即为冒泡阶段。
+
+实际开发中我们会更关注事件冒泡，很少关注捕获。
+
+### 事件对象
+
+event就是一个事件对象，是写到小括号里的 ，可以当成形参来看。
+
+```js
+btn2.onclick=function(event){
+            event
+        }
+```
+
+这个括号中间的对象即为事件对象。
+
+#### 事件对象常见方法
+
+e.target
+
+返回的是触发事件的对象，而this是绑定事件的对象。
+
+也就是说，点击了哪个target就返回哪个。
+
+e.preventDefault()
+
+这个方法可以阻止默认的行为，比如默认的链接跳转。
+
+#### 阻止事件冒泡stopPropagation()
+
+### 事件委托（面试高频）
+
+事件委托，之前我们对很多个按钮注册事件的时候，是全部都进行注册。
+
+但是我们可以通过事件委托，为父节点添加监听器。
+
+通过事件对象的target来找到点击的li
+
+```js
+var ul = document.querySelector('ul');
+        ul.addEventListener('click', function(e) {
+            e.target.style.backgroundColor = 'pink';
+        })
+```
+
+![image-20211223190035663](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211223190035663.png)
+
+通过事件对象，我们可以精准定位我们点击的元素。
+
+### 鼠标事件
+
+![image-20211223190916728](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211223190916728.png)
+
+
+
+
+
+mousemove
+
+这个即鼠标在页面内移动就触发事件。
+
+#### 小案例 图片跟着鼠标走
+
+```html
+<img src="./img/_提示.png" alt="">
+    <script type="text/javascript">
+        var img = document.querySelector('img');
+        document.addEventListener('mousemove', function(e) {
+            // console.log(e.clientX + ',' + e.clientY);
+            var x = e.pageX;
+            var y = e.pageY;
+            img.style.left = x + 'px';
+            img.style.top = y + 'px';
+
+        })
+    </script>
+```
+
+记住调整left和top的时候要加上px
+
+
+
+### 键盘事件
+
+onkeyup 放开键盘时触发
+
+onkeydown 按下键盘时触发
+
+onkeypress 按下也能触发，但不识别功能键。
+
+三个事件的执行的顺序：keydown->keypress->keyup
+
+
+
+#### keycode
+
+可以用这个事件的属性来查看用户到底按下了什么按键。
+
+keypress和keydown的区别就在此处，
+
+press是区分大小写的，而keydown是不区分的。
+
+```js
+document.addEventListener('keypress', function(e) {
+            console.log(e.keyCode);
+            if (e.keyCode === 65) {
+                alert('你好');
+            }
+        })
+```
+
+## BOM
+
+浏览器对象模型，即客户和浏览器发生交互时，直接操作的对象主体。
+
+也就是整个浏览器，都属于BOM，而DOM只是页面内容。
+
+![image-20211223220512644](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211223220512644.png)
+
+
+
+window对象，是bom的顶级对象
+
+### window.onload
+
+是窗口加载事件，即等待页面所有的元素加载完再加载js文件。
+
+
+
+
+
+
+
+
+
 
 
 

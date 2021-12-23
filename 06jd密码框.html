@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>input </title>
+    <style>
+        .box {
+            position: relative;
+            width: 400px;
+            margin: 50px auto;
+            border-bottom: 2px #ddd solid;
+        }
+        
+        input {
+            outline: none;
+            border: none;
+            width: 370px;
+            font-size: 24px;
+        }
+        
+        img {
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <label for="">
+            <img src="img/password.png" alt="" id="img">
+        </label>
+        <input type="password" id="inner">
+    </div>
+    <script type="text/javascript">
+        var eye = document.getElementById('img');
+        var input = document.getElementById('inner');
+        var flag = 1;
+        eye.onclick = function() {
+            if (flag == 0) {
+                input.type = 'password';
+                eye.src = 'img/密码可见.png'
+                flag = 1;
+            } else {
+                input.type = 'text';
+                eye.src = 'img/password.png'
+                flag = 0;
+            }
+        }
+    </script>
+</body>
+
+</html>

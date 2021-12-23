@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全选按钮</title>
+    <style>
+        .body {
+            width: 300px;
+            height: 250px;
+            margin: 0 auto;
+            border: solid red 1px;
+            border-spacing: 0px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        
+        thead {
+            height: 60px;
+            background-color: rgb(171, 191, 250);
+        }
+        
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <table class="body">
+        <thead>
+            <tr>
+                <td><input type="checkbox" id="all"></td>
+                <td>商品</td>
+                <td>价格</td>
+            </tr>
+        </thead>
+        <tbody id="tabs">
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>苹果</td>
+                <td>10000</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>小米</td>
+                <td>1000</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>华为</td>
+                <td>88880</td>
+            </tr>
+        </tbody>
+    </table>
+    <script type="text/javascript">
+        var all = document.getElementById('all');
+        var tabs = document.getElementById('tabs').getElementsByTagName('input');
+        all.onclick = function() {
+            for (var i in tabs) {
+                tabs[i].checked = this.checked;
+            }
+        }
+        all.getAttribute
+        for (var i in tabs) {
+            tabs[i].onclick = function() {
+                var flag = true;
+                for (var i in tabs) {
+                    if (!tabs[i].checked) {
+                        flag = false;
+                        break;
+                    }
+                }
+                all.checked = flag;
+            }
+        }
+    </script>
+
+</body>
+
+</html>

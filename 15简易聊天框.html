@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul {
+            width: 400px;
+        }
+        
+        ul li a {
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" value="" id="text">
+    <button id="btn">发送</button>
+    <ul>
+
+    </ul>
+    <script type="text/javascript">
+        var btn = document.getElementById('btn');
+        var textarea = document.getElementById('text');
+        var ul = document.querySelector('ul');
+        btn.onclick = function() {
+            if (textarea.value == '') {
+                alert("未输入！")
+            } else {
+                var li = document.createElement('li');
+                li.innerHTML = textarea.value + "<a href='javascript:;'>删除</a>";
+                ul.insertBefore(li, ul.children[0]);
+                textarea.value = '';
+                // 删除 当前a所在的父亲li，也就是remove ul下的li
+                var as = document.querySelectorAll('a');
+                for (var i = 0; i < as.length; i++) {
+                    as[i].onclick = function() {
+                        ul.removeChild(this.parentNode);
+                    }
+                }
+
+            }
+        }
+    </script>
+</body>
+
+</html>
