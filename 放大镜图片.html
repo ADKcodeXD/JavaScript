@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>放大镜</title>
+    <style>
+        .box1 {
+            border: 1px black solid;
+            position: relative;
+            width: 480px;
+            height: 270px;
+        }
+        
+        .boximg {
+            position: absolute;
+            width: 100%;
+        }
+        
+        .bigmask img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1920px;
+        }
+        
+        .mask {
+            display: none;
+            top: 0;
+            left: 0;
+            width: 200px;
+            position: absolute;
+            height: 200px;
+            background-color: rgba(240, 240, 26, 0.4);
+        }
+        
+        .bigmask {
+            display: none;
+            overflow: hidden;
+            left: 490px;
+            width: 480px;
+            position: absolute;
+            background-color: yellow;
+            height: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box1">
+        <img src="img/90380296_p0.png" class="boximg" alt="">
+        <div class="mask">
+
+        </div>
+        <div class="bigmask">
+            <img src="img/90380296_p0.png" alt="" class="bigImg">
+        </div>
+    </div>
+    <script type="text/javascript">
+        var box1 = document.querySelector('.box1');
+        var yellowbox = document.querySelector('.mask');
+        var bigmask = document.querySelector('.bigmask');
+        box1.addEventListener('mouseover', function(e) {
+            yellowbox.style.display = 'block';
+            bigmask.style.display = 'block';
+        })
+        box1.addEventListener('mouseout', function(e) {
+            yellowbox.style.display = 'none';
+            bigmask.style.display = 'none';
+        })
+
+        box1.addEventListener('mousemove', function(e) {
+            // 计算出鼠标在框内的坐标
+            var x = e.pageX - this.offsetLeft;
+            var y = e.pageY - this.offsetTop;
+            // 让鼠标在黄色框框的中间
+            var maskX = x - yellowbox.offsetWidth / 2;
+            var maskY = y - yellowbox.offsetHeight / 2;
+            // 判断是否出框 x轴
+            var maskMax = this.offsetWidth - yellowbox.offsetWidth;
+            var maskMay = this.offsetHeight - yellowbox.offsetHeight;
+            if (maskX <= 0) {
+                maskX = 0;
+            } else if (maskX >= maskMax) {
+                maskX = maskMax;
+            }
+            // 判断是否出框 Y轴
+            if (maskY <= 0) {
+                maskY = 0;
+            } else if (maskY >= maskMay) {
+                maskY = maskMay;
+            }
+            // 赋值给yellowbox
+            yellowbox.style.left = maskX + 'px';
+            yellowbox.style.top = maskY + 'px';
+            // 计算大图片的最大移动距离
+            var bigimg = document.querySelector('.bigImg');
+            var bigMax = bigimg.offsetWidth - bigmask.offsetWidth;
+            var bigMay = bigimg.offsetHeight - bigmask.offsetHeight;
+            // 计算大图片移动距离
+            var bigX = maskX / maskMax * bigMax;
+            var bigY = maskY / maskMay * bigMay;
+            // 赋值给bigimg
+            bigimg.style.left = -bigX + 'px';
+            bigimg.style.top = -bigY + 'px';
+        })
+    </script>
+</body>
+
+</html>

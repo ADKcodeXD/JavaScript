@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定时器 停止按钮</title>
+</head>
+
+<body>
+    <input type="number" value="">
+    <button>发送</button>
+    <script type="text/javascript">
+        var btn = document.querySelector('button');
+        var timmer = 10;
+        btn.addEventListener('click', function() {
+            btn.disabled = true;
+            btn.innerHTML = '还剩下' + timmer + '秒';
+            timmer--;
+            var time = setInterval(function() {
+                if (timmer == 0) {
+                    btn.disabled = false;
+                    btn.innerHTML = '发送';
+                    timmer = 10;
+                    clearInterval(time);
+                } else {
+                    btn.innerHTML = '还剩下' + timmer + '秒';
+                    timmer--;
+                }
+
+            }, 1000)
+        })
+    </script>
+</body>
+
+</html>

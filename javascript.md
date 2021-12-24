@@ -1678,15 +1678,550 @@ window对象，是bom的顶级对象
 
 是窗口加载事件，即等待页面所有的元素加载完再加载js文件。
 
+这个事件只有一个能起效。
+
+不过可以通过addeventlistener，这样就可以没有限制的onload
+
+```js
+		window.addEventListener('load', function() {
+            // 这里放js代码
+        })
+
+        document.addEventListener('DOMContentLoader',function(){
+            // 这里放js代码
+        })
+```
+
+
+
+DOMContentLoader会更快的加载，onload会等页面所有内容加载完毕才会执行js代码。
+
+前者会不等图片flashcss就执行js代码，后者会等全部加载完毕才会去执行。
+
+### 窗口大小变化事件
+
+resize ，这是以前没有css3时常用的响应式布局的方式
+
+```js
+		window.addEventListener('resize', function() {
+            // 窗口大小一变化 就会触发事件。
+        })
+```
+
+
+
+### 定时器
+
+setTimeout() ,setInterval()
+
+```js
+setTimeout(function(){
+    alert("你好")
+},3000)
+```
+
+setTimeout是一个定时器，第一个参数是函数，第二个参数指定延迟几秒，默认是毫秒单位。
+
+页面中可能有很多定时器，我们会给他们分别起个名字。
+
+```js
+var t1=setTimeout(function() {
+            alert("你好"); //三秒后执行该代码
+        }, 3000)
+```
+
+### 回调函数
+
+回调函数，就是回头调用函数，这个函数执行完了，回头执行回原来的代码，这就是回调。
+
+### 停止计时器
+
+clearTimeout
+
+通过这个函数，可以清除在执行的计时器。
+
+### 重复定时器
+
+setInterval()，这个定时器会反复调用一个函数，第二个参数是间隔多少秒执行一次。
+
+```js
+var timmer = setInterval(function() {
+            console.log('1');
+        }, 1000)
+```
+
+### 倒计时实例
+
+利用时间相减，分别为三个div中的值赋值，即可。
+
+```js
+var hour = document.querySelector('.hour');
+        var min = document.querySelector('.min');
+        var sec = document.querySelector('.sec');
+        var inputTime = +new Date('2021-12-25 9:00:00'); //加上+号转换为number数据 方便计算
+        countDown(); //先调用一次这个函数 防止刷新之后未执行
+
+        setInterval(countDown, 1000);
+
+
+        function countDown() {
+            var nowTime = +new Date(); //转换为number 然后进行计算。
+            var times = (inputTime - nowTime) / 1000; //获得剩余的秒数
+            var h = parseInt(times / 60 / 60 % 24);
+            h = h < 10 ? '0' + h : h;
+            hour.innerHTML = h;
+            var m = parseInt(times / 60 % 60);
+            m = m < 10 ? '0' + m : m;
+            min.innerHTML = m;
+            var s = parseInt(times % 60);
+            s = s < 10 ? '0' + s : s;
+            sec.innerHTML = s;
+
+        }
+```
+
+这里有一个计算剩余时间的函数。
+
+### 禁止发送案例
+
+![image-20211224125930041](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211224125930041.png)
+
+```js
+<script type="text/javascript">
+        var btn = document.querySelector('button');
+        var timmer = 10;
+        btn.addEventListener('click', function() {
+            btn.disabled = true;
+            btn.innerHTML = '还剩下' + timmer + '秒';
+            timmer--;
+            var time = setInterval(function() {
+                if (timmer == 0) {
+                    btn.disabled = false;
+                    btn.innerHTML = '发送';
+                    timmer = 10;
+                    clearInterval(time);
+                } else {
+
+                    btn.innerHTML = '还剩下' + timmer + '秒';
+                    timmer--;
+                }
+
+            }, 1000)
+        })
+    </script>
+```
+
+思路：设置一个全局时间 十秒，然后按下之后触发定时器，时间到了之后清除定时器。
+
+
+
+### this指向问题
+
+在全局函数，window中，this一般指向的是window。
+
+方法中，谁调用，this就指向谁。
 
 
 
 
 
+### js事件循环机制，同步异步
+
+js这门语言是单线程执行的，没有多线程和并发的概念，因此我们要引入异步的概念，否则单线程顺序执行会消耗很多时间。
+
+回调函数就是典型的异步任务，像click事件，定时器，等。
+
+异步任务会放入消息队列中，而同步任务在主程序执行栈中执行。
+
+会先执行执行栈中的任务，异步任务会先放入队列中，不执行。
+
+![image-20211224131507927](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211224131507927.png)
 
 
 
 
+
+多个异步任务的时候，会有一个异步进程处理程序进行处理。
+
+比如onclick事件，如果你不点击，异步进程处理程序就不会把任务放入队列当中。
+
+又比如倒计时事件，异步进程处理程序会等三秒后才会放入消息队列中。
+
+
+
+由于主线程不断的获取任务，执行任务，再获取任务，再执行任务。
+
+这也叫**js的事件循环机制**。
+
+### location
+
+location,可以用于获取url。
+
+location.href 获取连接
+
+location.search 获取参数
+
+这俩属性比较重要。
+
+#### assign
+
+记录浏览历史，记录后退功能，可以重定向页面。
+
+#### replace 
+
+不记录后退功能，没有历史
+
+#### reload
+
+刷新页面
+
+### navagator
+
+navagator包含了浏览器的agent，各种消息，和各种信息。
+
+### history对象
+
+后退和前进按钮 forward
+
+back
+
+go
+
+## 网页特效导读
+
+这一篇章开始制作一些简单的特效，
+
+
+
+### offset偏移量
+
+即元素在网页中的偏移量
+
+offsetTop
+
+offsetBottom
+
+可以在js中动态的获取到元素的位置。这个定位标准以带有定位的父亲元素为准。
+
+offsetWidth height，
+
+返回包含了padding和border的元素的宽度和高度
+
+offset和style的区别：offset的这个属性只能读写，不能赋值。
+
+
+
+### 案例:获取鼠标在盒子内的坐标(必备)
+
+![image-20211224142724007](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211224142724007.png)
+
+通过页面xy-去offset的XY，就可以得到鼠标在盒子内的坐标了
+
+```js
+var box = document.querySelector('.box1');
+        box.addEventListener('mousemove', function(e) {
+            var x = e.pageX - this.offsetLeft;
+            var y = e.pageY - this.offsetTop;
+            this.innerHTML = 'x:' + x + 'y:' + y;
+        })
+```
+
+### 案例:模态框
+
+首先写好样式，然后我们可以确定一个关闭按钮，一个黑屏的类，弹出登录框就增加类。
+
+```js
+var box = document.querySelector('.display-1');
+        var doctitle = document.querySelector('.doc-title');
+        var closebtn = document.querySelector('#close');
+        doctitle.addEventListener('click', function() {
+            box.style.display = 'block';
+            document.body.className = 'login-black';
+        });
+        closebtn.addEventListener('click', function() {
+            box.style.display = 'none';
+            document.body.className = '';
+        })
+```
+
+拖拽的效果，我们要根据鼠标在盒子内的坐标，然后去改变盒子的坐标。
+
+模态框的坐标，就是鼠标的坐标，减去鼠标在盒子内的坐标。
+
+### 案例:图片放大（重要）
+
+模仿淘宝物品详情页放大图片的做法
+
+![image-20211224155812591](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211224155812591.png)
+
+```js
+// 让鼠标在黄色框框的中间
+            var maskX = x - yellowbox.offsetWidth / 2;
+            var maskY = y - yellowbox.offsetHeight / 2;
+            // 判断是否出框 x轴
+            if (maskX <= 0) {
+                maskX = 0;
+            } else if (maskX >= this.offsetWidth - yellowbox.offsetWidth) {
+                maskX = this.offsetWidth - yellowbox.offsetWidth;
+            }
+            // 判断是否出框 Y轴
+            if (maskY <= 0) {
+                maskY = 0;
+            } else if (maskY >= this.offsetHeight - yellowbox.offsetHeight) {
+                maskY = this.offsetHeight - yellowbox.offsetHeight;
+            }
+```
+
+核心代码，让鼠标在框中间
+
+
+
+图片跟着一起走：
+
+![image-20211224160736495](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211224160736495.png)
+
+bigX=maskX/maskMax*bigMax;
+
+bigY=maskY/maskMay*bigMay;
+
+```js
+box1.addEventListener('mousemove', function(e) {
+            // 计算出鼠标在框内的坐标
+            var x = e.pageX - this.offsetLeft;
+            var y = e.pageY - this.offsetTop;
+            // 让鼠标在黄色框框的中间
+            var maskX = x - yellowbox.offsetWidth / 2;
+            var maskY = y - yellowbox.offsetHeight / 2;
+            // 判断是否出框 x轴
+            var maskMax = this.offsetWidth - yellowbox.offsetWidth;
+            var maskMay = this.offsetHeight - yellowbox.offsetHeight;
+            if (maskX <= 0) {
+                maskX = 0;
+            } else if (maskX >= maskMax) {
+                maskX = maskMax;
+            }
+            // 判断是否出框 Y轴
+            if (maskY <= 0) {
+                maskY = 0;
+            } else if (maskY >= maskMay) {
+                maskY = maskMay;
+            }
+            // 赋值给yellowbox
+            yellowbox.style.left = maskX + 'px';
+            yellowbox.style.top = maskY + 'px';
+            // 计算大图片的最大移动距离
+            var bigimg = document.querySelector('.bigImg');
+            var bigMax = bigimg.offsetWidth - bigmask.offsetWidth;
+            var bigMay = bigimg.offsetHeight - bigmask.offsetHeight;
+            // 计算大图片移动距离
+            var bigX = maskX / maskMax * bigMax;
+            var bigY = maskY / maskMay * bigMay;
+            // 赋值给bigimg
+            bigimg.style.left = -bigX + 'px';
+            bigimg.style.top = -bigY + 'px';
+        })
+```
+
+核心就是换算以及其中的一个公式。
+
+逻辑有点绕，但是理清楚应该就差不多。
+
+
+
+### client内容区
+
+不包含边框，这个会获得我们内容区的大小和上下。
+
+TopLeft Width Height
+
+
+
+### scroll
+
+获取滚动条的相关属性，会获取内容的实际大小
+
+超出宽度也可以获取。
+
+scrolltop代表被卷去的上侧，也就是拉上去的那部分高度。
+
+只要滚动滚动条就会触发scroll事件。
+
+### 侧边栏
+
+可以设置我们的scroll事件，当滚动到一定位置的时候，就显示回到顶部的按钮，
+
+### 三大系列总结
+
+offset 经常会用offsetTop Left获取元素位置
+
+client 会用width height获取元素大学
+
+scroll 会用top left获取滚动的距离
+
+页面滚动的距离 通过window.pageYOffset来获得
+
+### mouseover和mouseenter区别
+
+mouseover在经过子盒子和父盒子时，都会触发，
+
+而enter只会在经过自身盒子时触发。
+
+## js动画
+
+核心原理，通过定时器，不断的移动元素的位置。
+
+**必须要加上定位**
+
+### 简单动画封装函数和动画
+
+```js
+// 动画封装函数
+        function animate(obj, target) {
+            var timer = setInterval(function() {
+                if (obj.offsetLeft >= target) {
+                    clearInterval(timer);
+                }
+                obj.style.left = obj.offsetLeft + 5 + 'px';
+            }, 30)
+        }
+
+
+        var div = document.querySelector('.box1');
+        animate(div, 500);
+```
+
+
+
+由于我们每个动画都要新增一个timer
+
+会很占内存，我们可以利用js的动态语言的特性。
+
+把var timer 换成obj.timer,
+
+同时会有一个bug，如果是按钮触发动画 ，不停的按按钮就会不停的触发。因此我们的obj同一时间只能存在一个定时器。为此要在开启定时器之前，清除一下定时器。
+
+最终优化的动画封装函数如下
+
+```js
+function animate(obj, target) {
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function() {
+                if (obj.offsetLeft >= target) {
+                    clearInterval(timer);
+                }
+                obj.style.left = obj.offsetLeft + 5 + 'px';
+            }, 30)
+        }
+```
+
+
+
+### 缓动动画原理
+
+核心算法(目标位置-当前位置)/10
+
+```js
+var length = (target - obj.offsetLeft) / 10;
+```
+
+通过这个公式，就能做出由快到慢的动画。
+
+
+
+由于动画函数的使用频繁， 我们可以将最终版的函数，封装到单独的js文件中，以后就可以方便使用了。
+
+```js
+// 动画封装函数
+        function animate(obj, target, callback) {
+            // 进入的时候清除一下obj的定时器，避免多个动画同时运行
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function() {
+                if (obj.offsetLeft >= target) {
+                    clearInterval(timer);
+                    // 回调函数 可以写在定时器结束的时候进行调用
+                    // 如果有传入函数参数，就会调用这个函数
+                    if (callback) {
+                        callback();
+                    }
+                }
+                // 缓动步长公式
+                var step = (target - obj.offsetLeft) / 10;
+
+                // 如果是正值则向上取整 如果是负值则向下取整
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+
+                // 修改obj的位置
+                obj.style.left = obj.offsetLeft + step + 'px';
+            }, 15)
+        }
+```
+
+
+
+
+
+### 实例:轮播图
+
+小圆圈动态生成的思路，即下面的小圆圈的个数要和图片个数相同。
+
+```js
+for (var i = 0; i < imgList.children.length; i++) {
+    var li = document.createElement('li');
+    ul.appendChild(li);
+    li.setAttribute('index', i);
+    // 生成小圆圈的同时 绑定点击事件
+    li.addEventListener('click', function() {
+        // 小圆圈要有排他的思想 当前激活了其余的要变灰
+        for (var i = 0; i < ul.children.length; i++) {
+            ul.children[i].className = '';
+
+        }
+        this.className = 'pointhover';
+```
+
+
+
+轮播图，就是让整个ul动起来，每次动图片的一个宽度。
+
+可以给每个小圆点，增加index，可以快捷定位到不同的图片。
+
+```js
+// 要对imglist(ul)进行动画，移动整个background 让他左右移动
+// 当我们点下小圆圈，用小圆圈的索引号*图片的宽度，让他移动这个距离就行了。
+var target = bannerWidth * -this.getAttribute('index');
+// 引用动画函数 让imglist动起来;
+animate(imgList, target);
+```
+
+同时给右键添加响应事件，同样的，右键达到最后一张的时候需要做特殊处理：
+
+克隆第一张图片到最右侧。(在html中就要做好克隆第一张的准备)
+
+当我们再次点击的时候，就不做动画，让位置回到第一张的位置。
+
+```js
+// 点击右侧按钮，图片滚动一张。
+    var num = 0;
+    next.addEventListener('click', function() {
+        if (num == imgList.children.length - 1) {
+            imgList.style.left = '0px';
+            num = 0;
+
+        }
+        num++;
+        animate(imgList, -num * bannerWidth);
+    })
+```
+
+当然 可以使用js来进行克隆。
+
+使用一个深克隆，就可以做到，然后加入到imgList的最后面
+
+```js
+// 克隆第一张图片放到最后面。
+    var first = imgList.children[0].cloneNode(true);
+    imgList.appendChild(first);
+```
 
 
 

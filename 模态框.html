@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模态框</title>
+    <style>
+        .doc-title {
+            width: 200px;
+            margin: 0 auto;
+        }
+        
+        .doc-title a {
+            text-decoration: none;
+            color: black;
+            font-size: 24px;
+        }
+        
+        .wrapper {
+            width: 630px;
+            height: 320px;
+            display: flex;
+            position: fixed;
+            flex-direction: column;
+            padding: 10px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: rgb(253, 253, 253);
+        }
+        
+        .wrapper .ball {
+            width: 35px;
+            height: 35px;
+            position: absolute;
+            top: -13px;
+            left: 630px;
+            background-color: rgb(255, 255, 255);
+            box-shadow: 0px 0px 2px rgb(0, 0, 0, 0.4);
+            line-height: 35px;
+            font-size: 12px;
+            text-align: center;
+            border-radius: 50%;
+        }
+        
+        .wrapper .title {
+            width: 100%;
+            font-size: 20px;
+        }
+        
+        .wrapper .username-box {
+            width: 100%;
+            height: 35px;
+        }
+        
+        label {
+            float: left;
+            display: block;
+            width: 70px;
+            height: 100%;
+            line-height: 35px;
+        }
+        
+        .wrapper .pwd-box {
+            width: 100%;
+            height: 35px;
+        }
+        
+        .wrapper input {
+            height: 30px;
+            width: 500px;
+            border: solid rgb(202, 202, 202) 1px;
+        }
+        
+        .loginbtn {
+            width: 200px;
+            height: 38px;
+        }
+        
+        .login-black {
+            background-color: rgb(0, 0, 0, 0.5);
+        }
+        
+        .display-1 {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="">
+    <div class="doc-title"><a href="javascript:;">点击弹出登录框</a></div>
+
+    <div class="display-1">
+        <div class="wrapper">
+            <div class="ball">
+                <a href="javascript:;" id="close">关闭</a>
+            </div>
+            <h1 class="title">登录会员</h1>
+            <div class="username-box">
+                <label>用户名:</label>
+                <input type="text" placeholder="请输入用户名">
+            </div>
+            <div class="pwd-box">
+                <label>密码:</label>
+                <input type="password" placeholder="请输入密码">
+            </div>
+            <div class="btn-box">
+                <button class="loginbtn">登录会员</button>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        var box = document.querySelector('.display-1');
+        var doctitle = document.querySelector('.doc-title');
+        var closebtn = document.querySelector('#close');
+        var title = document.querySelector('.title');
+        var wrapper = document.querySelector('.wrapper');
+        doctitle.addEventListener('click', function() {
+            box.style.display = 'block';
+            document.body.className = 'login-black';
+        });
+        closebtn.addEventListener('click', function() {
+            box.style.display = 'none';
+            document.body.className = '';
+        })
+        title.addEventListener('mousedown', function(e) {
+            var x = e.pageX - wrapper.offsetLeft;
+            var y = e.pageY - wrapper.offsetTop;
+            // 获取鼠标在盒子内的坐标
+            // 这个值是不会变的
+            var move = function(e) {
+                // 鼠标移动，用当前鼠标在页面内的坐标 减去鼠标在盒子内的坐标
+                // 也就是左上角的地方在哪
+                wrapper.style.left = e.pageX - x + 'px';
+                wrapper.style.top = e.pageY - y + 'px';
+            }
+            document.addEventListener('mousemove', move);
+            // 添加放开鼠标事件，也就是放开鼠标移除move这个函数事件
+            document.addEventListener('mouseup', function(e) {
+                document.removeEventListener('mousemove', move);
+            })
+        })
+    </script>
+</body>
+
+</html>

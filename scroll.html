@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scroll</title>
+    <style>
+        .wrapper {
+            width: 80%;
+            margin: 0 auto;
+        }
+        
+        header {
+            width: 100%;
+            height: 200px;
+            background-color: yellowgreen;
+        }
+        
+        .banner {
+            width: 100%;
+            height: 1000px;
+            background-color: rgb(231, 157, 19);
+        }
+        
+        footer {
+            width: 100%;
+            height: 300px;
+            background-color: rgb(19, 217, 231);
+        }
+        
+        .box1 {
+            position: absolute;
+            width: 50px;
+            height: 150px;
+            top: 323px;
+            left: 1063px;
+            background-color: rgb(255, 8, 0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header></header>
+        <div class="banner"></div>
+        <div class="box1">
+        </div>
+        <main></main>
+        <footer></footer>
+        <script type="text/javascript">
+            var sliderball = document.querySelector('.box1');
+            var banner = document.querySelector('.banner');
+            var bannertop = banner.offsetTop;
+            var slidertop = sliderball.offsetTop - bannertop;
+            document.addEventListener('scroll', function() {
+                if (window.pageYOffset > bannertop) {
+                    sliderball.style.position = 'fixed';
+                    sliderball.style.top = slidertop + 'px';
+                    sliderball.innerHTML = '返回顶部'
+                } else {
+                    sliderball.style.position = 'absolute';
+                    sliderball.style.top = '323px';
+                    sliderball.innerHTML = '';
+                }
+            })
+        </script>
+    </div>
+
+</body>
+
+</html>
