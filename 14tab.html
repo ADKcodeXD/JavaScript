@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tab click</title>
+    <script src="./js/jquery.min.js"></script>
     <style>
         .wrapper {
             width: 400px;
@@ -34,8 +35,8 @@
         }
         
         .hover {
-            color: rgb(255, 255, 255);
-            background-color: red;
+            color: rgb(255, 255, 255) !important;
+            background-color: rgb(255, 79, 79);
         }
         
         .des {
@@ -56,39 +57,50 @@
             <li>
                 <a href="#">商品评价</a></li>
         </ul>
+
         <div class="des" style="display: block;">fkjsafnk</div>
         <div class="des">sfafa</div>
         <div class="des">fsafsa</div>
         <div class="des">fsafasf</div>
     </div>
     <script type="text/javascript">
-        // 获取元素
-        var tab = document.querySelector('.box');
-        var tabs = tab.querySelectorAll('li');
-        var items = document.querySelectorAll('.des');
-        // 获取元素
+        // // 获取元素
+        // var tab = document.querySelector('.box');
+        // var tabs = tab.querySelectorAll('li');
+        // var items = document.querySelectorAll('.des');
+        // // 获取元素
 
-        // 循环绑定事件
-        for (var i = 0; i < tabs.length; i++) {
-            tabs[i].setAttribute("index", i);
-            tabs[i].onclick = function() {
-                // 设置互斥tab
-                for (var i = 0; i < tabs.length; i++) {
-                    tabs[i].className = '';
-                }
-                this.className = 'hover';
-                var index = this.getAttribute('index');
-                // 设置互斥tab
+        // // 循环绑定事件
+        // for (var i = 0; i < tabs.length; i++) {
+        //     tabs[i].setAttribute("index", i);
+        //     tabs[i].onclick = function() {
+        //         // 设置互斥tab
+        //         for (var i = 0; i < tabs.length; i++) {
+        //             tabs[i].className = '';
+        //         }
+        //         this.className = 'hover';
+        //         var index = this.getAttribute('index');
+        //         // 设置互斥tab
 
 
-                for (var i = 0; i < items.length; i++) {
-                    items[i].style.display = 'none';
-                }
+        //         for (var i = 0; i < items.length; i++) {
+        //             items[i].style.display = 'none';
+        //         }
 
-                items[index].style.display = 'block';
-            }
-        }
-        // 循环绑定事件
+        //         items[index].style.display = 'block';
+        //     }
+        // }
+        // // 循环绑定事件
+        //Jquery 重写
+        $(function(){
+            $('ul li').hover(function(){
+                var index=$(this).index();
+                $(this).addClass('hover').siblings().removeClass('hover');
+                $('.wrapper div').eq(index).fadeIn("normal").siblings('div').fadeOut("normal");
+            });
+            
+        })
+        
     </script>
 </body>
 

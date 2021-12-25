@@ -2225,7 +2225,693 @@ animate(imgList, target);
 
 
 
+自动播放：其实就相当于我们定时去点击这个右侧按钮。
+
+因此我们可以去调用点击事件来设置定时器。
+
+```js
+// 自动播放
+    var timer = setInterval(function() {
+        next.click();
+    }, 5000)
+```
+
+当然，但我们鼠标经过这个右侧按键的时候，就要去停止这个定时器。
+
+```js
+// 自动播放
+    var timer = setInterval(function() {
+            next.click();
+        }, 3000)
+    // 鼠标经过右侧按钮，停止定时器.
+    next.addEventListener('mouseenter', function() {
+        clearInterval(timer);
+        timer = null;
+    });
+    // 离开 自动开始定时器
+    next.addEventListener('mouseleave', function() {
+        timer = setInterval(function() {
+            next.click();
+        }, 3000)
+    })
+```
+
+### 节流阀
+
+节流阀，目的就是让我们函数动画执行完毕后，再去执行下一个函数动画。
+
+```js
+// 节流阀
+    var flag=true;
+    next.addEventListener('click', function() {
+        // 一开始顺利执行
+        if(flag){
+            // 执行的时候开启节流阀（false
+            flag=false;
+            if (num == imgList.children.length - 1) {
+                imgList.style.left = '0px';
+                num = 0;
+            }
+            num++;
+            animate(imgList, -num * bannerWidth,function(){
+                // 设置回调函数，动画播放完再关闭节流阀
+                flag=true;
+            });
+            // 小圆圈的轮播
+            circle++;
+            // 如果circle=4 那就复原
+            if (circle == ul.children.length) {
+                circle = 0;
+            }
+            for (var i = 0; i < ul.children.length; i++) {
+                ul.children[i].className = '';
+            }
+            ul.children[circle].className = 'pointhover';
+        }
+
+    })
+```
 
 
 
+### 返回顶部动画
+
+通过之前的动画函数，把位置全部改为页面移动的距离（pageYOffset）
+
+即可
+
+
+
+## 移动端网页特效
+
+
+
+### 触屏事件
+
+touch 这个事件就是点击一下
+
+
+
+touchstart 
+
+touchmove
+
+touchend
+
+
+
+touchevent触摸事件对象，可以获取手指的坐标状态等 
+
+
+
+targetTouches
+
+可以获得触摸当前dom元素的所有手指列表
+
+
+
+### 拖动元素
+
+通过touchstart 
+
+touchmove
+
+touchend来知道手指在拖动
+
+再通过targetTouches[0]获取手指的坐标，最终可以让元素跟着移动
+
+### 移动端轮播图
+
+由于进去就需要无缝，因此需要做一个适配，将第一张复制到最后一张，最后一张复制到最前面
+
+
+
+### classList属性
+
+能返回当前的所有class
+
+也可以添加类名
+
+add('class1')
+
+会追加类名
+
+remove('移除类名')
+
+切换类名
+
+toggle('类名') 原来没有 ，就加上，原来有，就去掉。
+
+
+
+
+
+### 移动端click延时问题
+
+移动端有一个300ms的延时问题，因为移动端是可以两只手指缩放页面，因此在点击后再300ms后我们才会响应事件。
+
+第一个解决方案：禁用缩放
+
+第二个方案：封装函数，并且使用回调函数调用事件。
+
+还有一个方案，就是使用fastclick插件。
+
+  
+
+### Swiper插件 轮播图插件
+
+首先去官网下载相关文件
+
+首先引入相关的swiper.js和css样式
+
+其次打开demo，把相关的部分放入想要放入的轮播图part里
+
+```html
+<link rel="stylesheet" href="../JavaScript/css/swiper.css">
+    <script src="../JavaScript/js/swiper.js"></script>
+```
+
+引入样式和js文件
+
+
+
+![image-20211225142634916](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211225142634916.png)
+
+然后复制所有内容
+
+引入css样式
+
+![image-20211225142738850](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211225142738850.png)
+
+吧swiper相关的样式复制到页面中
+
+
+
+最后把demo后的js代码拿过来，
+
+![image-20211225142827800](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211225142827800.png)
+
+然后这个效果就完成了，一键轮播图 属于是。
+
+#### Swiper自定义参数
+
+可在官网查阅
+
+
+
+### 视频端插件 zy.media.js
+
+这个插件可以统一我们每个浏览器不同的视频风格。
+
+
+
+### Bootstrap
+
+后续学习
+
+
+
+### 本地存储
+
+localstorage 
+
+以及SessionStorage
+
+local是永久的，Session在浏览器的一次会话中都起作用。
+
+get，set，remove，clear
+
+即是常用的键值对存储方法。
+
+
+
+
+
+## JQuery
+
+JQuery是一个常用的JavaScript库，里面封装了很多常用的函数，我们可以使用JQuery来进行一些前后端的交互以及其他事情。
+
+### 入口函数
+
+等待页面dom加载完毕 再去加载代码的写法：
+
+```js
+$(document).ready(function(){
+
+})
+$(function(){
+
+})
+```
+
+这俩都是jQuery的入口函数，相当于DOMContentLoaded
+
+
+
+### $的功能
+
+其实是一个别名，代表JQuery
+
+```js
+$('div').hide();
+//等价于
+jQuery('div').hide();
+```
+
+
+
+### dom对象和jQuery对象
+
+当我们使用jQuery去获取到一个对象，那这个对象就是jQuery对象，和我们通过document获取到的对象是不一样的，jQuery本质是利用$对对象进行了一个包装。
+
+jQuery只能用jQuery的方法，而原生Dom对象可以用js原生的方法，但无法用jQuery的方法。
+
+### JQuery对象和Dom对象的相互转换
+
+把Dom对象转换为jQuery对象=》
+
+```js
+var d=document.querySelector('div');
+            $(d);
+```
+
+直接用美刀符号括起来就会转换。
+
+
+
+
+
+jQuery转换为原生对象
+
+```js
+$(d)[0].ariaValueMax
+```
+
+后面加个序列号就行。
+
+
+
+
+
+### JQuery常用API
+
+#### JQuery常用选择器
+
+```js
+$('.iou');//这样就是一个选择器
+```
+
+jQuery把js复杂的选择器全部封装起来，只剩下统一标准的方式。
+
+选择到的都是一个伪数组的形式。
+
+```js
+$('ul li');
+```
+
+也可以这么选择全部子集
+
+
+
+```js
+$('ul li').css('background-color','pink');
+```
+
+设置css样式，要用css这个函数，后面加上属性和值。
+
+#### 隐式迭代
+
+会发现我们上面的所有li都添加了pink
+
+这就是jQuery中的隐式迭代，他会在所有匹配的元素内部进行循环以及遍历。
+
+#### 筛选选择器
+
+![image-20211225155649622](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211225155649622.png)
+
+比如要选择第x个li
+
+就用eq去选择即可
+
+```js
+$('ul li:eq(2)').css('background-color','pink');
+```
+
+
+
+#### 筛选方法
+
+![image-20211225155934479](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211225155934479.png)
+
+```js
+var a=$('ul li:eq(2)').css('background-color','pink');
+            
+console.log(a.parent());
+```
+
+parent返回的是最近一级的父元素
+
+children 只返回自己的子级，后代是不会被选择的。
+
+而find会选择上所有后代。
+
+nextAll 当前元素之后的所有兄弟元素
+
+siblings 选了除了自己之外的所有兄弟元素。
+
+$(this),jQuery里用这种方式指代自身。
+
+
+
+判断是否拥有特定的类 hasclass
+
+#### jQuery的迭代以及兄弟元素选择
+
+通过把自己颜色设置好，除自己之外的兄弟元素全部设置为空即可
+
+```js
+$(document).ready(function(){
+    $('button').click(function(){
+        $(this).css("background-color",'pink');
+        $(this).siblings("button").css("background-color",'');
+    })
+});
+```
+
+
+
+#### jQuery.index()
+
+这个方法我们能够快捷的获取当前元素的索引号
+
+
+
+#### 链式编程
+
+链式编程就是节约代码，不推荐，可读性很差。
+
+
+
+### JQuery样式操作
+
+第一种就是上面介绍过的css方法。
+
+css里面可以传入对象，里面的书写可以不用加引号。
+
+```js
+$(this).css({
+    width:200,
+    height:320,
+    backgroundColor:"red"
+});
+```
+
+也就是我们可以这样来修改样式
+
+注意里面的backgroundColor不用-连接
+
+第二种就是添加类addClass()
+
+```js
+$(this).addClass('current');
+```
+
+还有toggle切换类，有则删，无则加
+
+```js
+$(this).toggleClass('current');
+```
+
+#### tab栏切换
+
+```js
+$('ul li').click(function(){
+    var index=$(this).index();
+    $(this).addClass('hover').siblings().removeClass('hover');
+
+    $('.wrapper div').eq(index).show().siblings('div').hide();
+})
+```
+
+通过jquery 我们大大的简化了之前的操作的繁琐。
+
+
+
+### JQuery效果
+
+用到最多的就是show hide 以及toggle
+
+slidedown up toggle
+
+
+
+#### show
+
+show里面有三个参数 第一个是速度，第二个是缓入缓出，第三个是回调函数
+
+```js
+$('.wrapper div').eq(index).show("normal").siblings('div').hide();
+```
+
+第一个要输入 字符串的参数
+
+或者以ms为单位的时间单位
+
+
+
+#### slide
+
+参数也和show的一模一样
+
+区别是 这个是上下消失的动画
+
+
+
+#### hover
+
+jQuery里封装了该函数，能够做出css3中hover的效果
+
+里面有两个参数，都是函数参数。
+
+不过也可以只写一个函数，只写一个函数就代表：经过离开都触发这个函数
+
+
+
+#### 动画节流
+
+动画每次触发，他们都要进入到一个队列，上一次动画未执行完，就不会执行下一个动画，因此动画会一直执行
+
+解决方法就是在执行动画之前时执行一次stop函数，停止上一次执行的动画。
+
+
+
+#### fadeInOut
+
+淡入淡出效果，淡的是透明度
+
+fadeto（时间，透明度（0-1））
+
+这个能够指定对应的透明度
+
+
+
+#### animate
+
+自定义动画
+
+```js
+$('button').click(function () {
+    $('div').animate({
+        top: 300,
+        left: 400
+    },500)
+})
+```
+
+第一个参数是对象，决定了要改变的css样式属性，第二个参数是时间。
+
+
+
+### 王者手风琴
+
+思路，即更改li的宽度，让他带个fadein和out
+
+```js
+$("ul li").mouseenter(function(){
+    $(this).stop().animate({
+        width:224
+    }).find(".small").stop().fadeOut().siblings(".big").stop().fadeIn();
+    // 其余的就要小图片淡入 大图片淡出
+    $(this).siblings('li').stop().animate({
+        width:69
+    }).find(".small").stop().fadeIn().siblings(".big").stop().fadeOut();
+})
+```
+
+
+
+### JQuery属性
+
+获取属性值要使用prop
+
+```js
+$(this).prop('innerHTML',"这是按钮");
+```
+
+用prop可以设置元素的固有属性，也可以获取固有属性。
+
+两个值的话就是设置，一个值即获取。
+
+
+
+如果要获取自定义的属性的话，就要使用attr
+
+```js
+$(this).attr('index',45);
+```
+
+![image-20211225194330299](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211225194330299.png)
+
+data属性：用这个值存放的属性，会存放在元素的内存当中，不会出现在dom中。
+
+
+
+### jQuery获取元素值
+
+.html();可以获取标签里整个的内容，连html标签都带上
+
+.text();只把文字内容获取，不包括标签
+
+val();等价value，可以获取表单的值
+
+
+
+
+
+#### parents(祖先选择器)
+
+可以找到所有上级元素 通过索引可以快速定位上级。
+
+
+
+
+
+### 元素操作
+
+隐式迭代是对每个元素都做一样的操作。如果想做不同的操作就要进行each来进行遍历。
+
+```js
+$('button').each(function(index,domEle){
+    if(index%2==0){
+        $(domEle).html('偶数');
+    }
+})
+```
+
+两个参数
+
+第一个参数就是每个元素的索引号，第二个参数是获取到的原生dom对象。
+
+要操作他要先转换为jQuery对象
+
+![image-20211225210401623](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211225210401623.png)
+
+#### $.each
+
+两个参数，这个函数可以遍历任何对象
+
+第一个参数是指定的元素对象，第二个参数是函数。
+
+```js
+var a=$('button');
+$.each(a,function(key,value){
+
+});
+```
+
+
+
+### 创建元素 删除 等
+
+创建元素在JQuery里比较简单，直接用$('')包裹起来就可以创建一个元素。
+
+我们添加可以使用append函数，直接添加到父元素的后面。
+
+如果要添加到前面，要使用prepend
+
+```js
+var li=$('<li></li>');
+$('ul').append(li);
+```
+
+同时 有after和before也可以添加
+
+不过这两个元素添加的是兄弟元素，而append和prepend添加的是子元素
+
+```js
+$('ul').before(ul);
+```
+
+
+
+同样的 ，要删除子元素，孩子节点，可以用empty，会删除掉匹配元素里的所有的内容。
+
+
+
+### 获取元素尺寸
+
+直接使用width()可以获取元素本身的宽度，但不包含padding
+
+如果要获取包含padding的，可以用innerWidth
+
+如果要包含border的 ，就可以用outerWidth
+
+如果要包含margin，可以用outerWidth(true)
+
+
+
+
+
+### 获取元素位置
+
+offset() position() 
+
+offset(xxx,xxx)是相对于文档的，无论有没有定位，都是得到盒子距离文档的坐标。
+
+position()可以获得带有定位的父级位置的坐标。
+
+
+
+### 获取scroll
+
+scrollTop()可以获得我们的页面到底滚动了多少。
+
+要获得文档被拉下去多少，可以直接用
+
+```js
+$(document).scrollTop()
+```
+
+来获取
+
+返回顶部动画
+
+**注意：要让html和body来做动画，可以直接更改scrollTop来进行动画**
+
+```js
+var top=$('.banner').offset().top;
+$(window).scroll(function(){
+    var down=$(document).scrollTop();
+    if(down>=top){
+        $('.box1').fadeIn();
+    }else{
+        $('.box1').fadeOut();
+    }
+})
+$('.box1').click(function(){
+    $('body,html').stop().animate({
+        scrollTop:0
+    })
+})
+```
 

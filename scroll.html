@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>scroll</title>
+    <script src="./js/jquery.min.js"></script>
     <style>
         .wrapper {
             width: 80%;
@@ -31,11 +32,12 @@
         }
         
         .box1 {
-            position: absolute;
+            display: none;
+            position: fixed;
             width: 50px;
             height: 150px;
-            top: 323px;
-            left: 1063px;
+            top: 600px;
+            right: 5%;
             background-color: rgb(255, 8, 0);
         }
     </style>
@@ -46,10 +48,34 @@
         <header></header>
         <div class="banner"></div>
         <div class="box1">
+            <a href="javascript:;">
+                返回顶部
+            </a>
         </div>
         <main></main>
         <footer></footer>
-        <script type="text/javascript">
+        <!-- <script type="text/javascript">
+            function animate(obj, target, callback) {
+                // 进入的时候清除一下obj的定时器，避免多个动画同时运行
+                if (obj.timer) {
+                    clearInterval(obj.timer);
+                }
+                obj.timer = setInterval(function() {
+                    // 缓动步长公式
+                    var step = (target - window.pageYOffset) / 10;
+                    // 如果是正值则向上取整 如果是负值则向下取整
+                    step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                    if ((window.pageYOffset - target) < 20) {
+                        if (obj.timer) {
+                            clearInterval(obj.timer);
+                        }
+                        // 回调函数 可以写在定时器结束的时候进行调用
+                        // 如果有传入函数参数，就会调用这个函数
+                        callback && callback();
+                    }
+                    window.scroll(0, window.pageYOffset + step)
+                }, 15)
+            }
             var sliderball = document.querySelector('.box1');
             var banner = document.querySelector('.banner');
             var bannertop = banner.offsetTop;
@@ -59,12 +85,36 @@
                     sliderball.style.position = 'fixed';
                     sliderball.style.top = slidertop + 'px';
                     sliderball.innerHTML = '返回顶部'
+                    sliderball.addEventListener('click', function() {
+                        animate(window, 0);
+                        // 这个可以让我们的窗口滚动到特定位置
+
+                    })
                 } else {
                     sliderball.style.position = 'absolute';
                     sliderball.style.top = '323px';
                     sliderball.innerHTML = '';
                 }
             })
+        </script> -->
+        <script>
+            $(function(){
+                var top=$('.banner').offset().top;
+                $(window).scroll(function(){
+                    var down=$(document).scrollTop();
+                    if(down>=top){
+                        $('.box1').fadeIn();
+                    }else{
+                        $('.box1').fadeOut();
+                    }
+                })
+                $('.box1').click(function(){
+                    $('body,html').stop().animate({
+                        scrollTop:0
+                    })
+                })
+            })
+            
         </script>
     </div>
 

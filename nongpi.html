@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王者仿制品</title>
+    <script src="./js/jquery.min.js"></script>
+    <style>
+        .box1{
+            width: 732px;
+            height: 98px;
+            background-color: rgb(47, 47, 148);
+            margin: 50px auto;
+            border-radius: 10px 10px 0px 0px ;
+        }
+        .imglist{
+            overflow: hidden;
+            list-style: none;
+            padding: 0;
+            padding-left: 10px;
+            padding-top: 10px;
+            position: relative;
+            
+        }
+        .imglist li{
+            position: relative;
+            float: left;
+            width: 74px;
+            height: 71px;
+            margin-right: 7px;
+            border-radius: 10px;
+        }
+        img{
+            width: 69px;
+            border-radius: 15px;
+        }
+        .imglist .current{
+            width: 224px;
+        }
+        .current .small{
+            display: none;
+        }
+        .current .big{
+            display: block;
+        }
+        .small{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .big{
+            width: 224px;
+            display: none;
+        }
+        .big img{
+            width: 224px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box1">
+        <ul class="imglist">
+            <li ><a href="javascript:;"><img src="./img/王者icon/1-small.jpg" class="small"><img src="./img/王者icon/105-freehover.png" class="big"></a></li>
+            <li class="current"><a href="javascript:;"><img src="./img/王者icon/112.jpg" class="small"><img src="./img/王者icon/112-freehover.png" class="big"></a></li>
+            <li><a href="javascript:;"><img src="./img/王者icon/121.jpg" class="small"><img src="./img/王者icon/121-freehover.png" class="big"></a></li>
+            <li><a href="javascript:;"><img src="./img/王者icon/137.jpg" class="small"><img src="./img/王者icon/137-freehover.png" class="big"></a></li>
+            <li><a href="javascript:;"><img src="./img/王者icon/183.jpg" class="small"><img src="./img/王者icon/183-freehover.png" class="big"></a></li>
+            <li><a href="javascript:;"><img src="./img/王者icon/502.jpg" class="small"><img src="./img/王者icon/502-freehover.png" class="big"></a></li>
+            <li><a href="javascript:;"><img src="./img/王者icon/509.jpg" class="small"><img src="./img/王者icon/509-freehover.png" class="big"></a></li>
+        </ul>
+    </div>
+    <script>
+        $(function(){
+
+            $("ul li").mouseenter(function(){
+                $(this).stop().animate({
+                    width:224
+                }).find(".small").stop().fadeOut().siblings(".big").stop().fadeIn();
+                // 其余的就要小图片淡入 大图片淡出
+                $(this).siblings('li').stop().animate({
+                    width:69
+                }).find(".small").stop().fadeIn().siblings(".big").stop().fadeOut();
+            })
+                
+        })
+    </script>
+</body>
+
+</html>

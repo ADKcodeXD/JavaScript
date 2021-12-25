@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery</title>
+    <script src="./js/jquery.min.js"></script>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+        .current{
+            width: 500px;
+            height: 100px;
+            background-color: rgb(0, 0, 0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="iou">
+
+    </div>
+    <ul>
+        
+    </ul>
+    <button>快速</button>
+    <button>快速</button>
+    <button>快速</button>
+    <button>快速</button>
+    <button>快速</button>
+    <button>快速</button>
+    <script>
+        $(document).ready(function () {
+            $('button').each(function(index,domEle){
+                if(index%2==0){
+                    $(domEle).html('偶数');
+                }
+            })
+            var a=$('button');
+            $.each(a,function(key,value){
+
+            });
+            var li=$('<li></li>');
+            var ul=$('<ul></ul>');
+            $('ul').append(li);
+            $('ul').prepend(li);
+            $('ul').before(ul);
+        });
+    </script>
+</body>
+
+</html>
