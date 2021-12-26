@@ -1,0 +1,176 @@
+body{
+    background: url(../img/92388640_p0.png ) no-repeat 0 0;
+    background-size: cover;
+}
+.viewport{
+    min-width: 1024px;
+    max-width: 1920px;
+    margin: 0 auto;
+    min-height: 780px;
+    max-height: 1078px;
+    background: url(../img/logo.png) no-repeat;
+    background-size: contain;
+    padding: 1rem 0.25rem 0 ;
+    margin: 0 auto;
+    display: flex;
+}
+.column{
+    flex: 3;
+}
+.column:nth-child(2){
+    flex: 4;
+}
+.panel{
+    position: relative;
+    border: 10px solid transparent;
+    border-width: .6375rem .475rem .25rem 1.65rem;
+    border-image-source: url(../img/border.png);
+    border-image-slice: 51 38 20 132;
+    border-image-repeat: round;
+    margin-bottom: .25rem;
+}
+.inner{
+    position: absolute;
+    top: -0.6375rem;
+    left: -1.65rem;
+    right: -0.475rem;
+    bottom: -0.25rem;
+    padding: .3rem .45rem;
+}
+.overview{
+    height: 1.1rem;
+
+}
+.overview ul{
+    display: flex;
+    padding-left: 0;
+    justify-content: space-between;
+    list-style: none;
+}
+.overview ul li h4{
+    font-size: .35rem;
+    font-weight: 400;
+    color: #fff;
+    margin: 0 0 .1rem .06rem;
+}
+.overview ul li span{
+    font-size: .2rem;
+    color: rgb(214, 148, 25);
+}
+
+
+
+/* 监控区域模块制作 */
+.monitor {
+    height:2rem;
+  }
+  .monitor .inner {
+    padding: 0.3rem 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .monitor .tabs {
+    padding: 0 0.45rem;
+    margin-bottom: 0.225rem;
+    display: flex;
+  }
+  .monitor .tabs a {
+    color: #1950c4;
+    font-size: 0.225rem;
+    padding: 0 0.3375rem;
+  }
+  .monitor .tabs a:first-child {
+    padding-left: 0;
+    border-right: 0.025rem solid #00f2f1;
+  }
+  .monitor .tabs a.active {
+    color: #fff;
+  }
+  .monitor .content {
+    flex: 1;
+    position: relative;
+    display: none;
+  }
+  .monitor .head {
+    display: flex;
+    justify-content: space-between;
+    line-height: 1.05;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.15rem 0.45rem;
+    color: #68d8fe;
+    font-size: 0.175rem;
+  }
+  .monitor .marquee-view {
+    position: absolute;
+    top: 0.5rem;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .monitor .row {
+    display: flex;
+    justify-content: space-between;
+    line-height: 1.05;
+    font-size: 0.15rem;
+    color: #61a8ff;
+    padding: 0.15rem 0.45rem;
+  }
+  .monitor .row .icon-dot {
+    position: absolute;
+    left: 0.2rem;
+    opacity: 0;
+  }
+  .monitor .row:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #68d8fe;
+  }
+  .monitor .row:hover .icon-dot {
+    opacity: 1;
+  }
+  .monitor .col:first-child {
+    width: 1rem;
+  }
+  .monitor .col:nth-child(2) {
+    width: 2.5rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .monitor .col:nth-child(3) {
+    width: 1rem;
+  }
+  /* 通过CSS3动画滚动marquee */
+  .marquee-view .marquee {
+    animation: move 15s linear infinite;
+  }
+  @keyframes move {
+    0% {
+    }
+    100% {
+      transform: translateY(-50%);
+    }
+  }
+  /* 3.鼠标经过marquee 就停止动画 */
+  .marquee-view .marquee:hover {
+    animation-play-state: paused;
+  }
+  .pointer{
+      height: 4rem;
+      
+  }
+  .pointer .inner{
+    padding: .15rem .25rem .15rem .25rem;
+  }
+  .pointer h3{
+    color: aliceblue;
+    font-size: .25rem;
+  }
+  .pointer .content{
+      display: flex;
+      justify-content: space-between;
+  }
+  .pointer .map{
+      width: 3.75rem;
+      height: 3.75rem;
+  }

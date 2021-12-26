@@ -363,14 +363,14 @@ for (i = 0; i < 100; i++) {
 
 ```js
 afor:
-            for (;;) {
-                bfor:
-                for(i=0;i<10;i++){
-                    if(i==2){
-                        break afor;
-                    }
-                }
-            }
+for (;;) {
+    bfor:
+    for(i=0;i<10;i++){
+        if(i==2){
+            break afor;
+        }
+    }
+}
 ```
 
 
@@ -2914,4 +2914,319 @@ $('.box1').click(function(){
     })
 })
 ```
+
+
+
+### JQuery事件
+
+
+
+
+
+#### 事件注册
+
+传统的注册事件 ，只能连在一起，但是我们可以通过on()这个方法，来绑定一个或者多个事件函数
+
+通过on可以传入一个对象，放入多个事件并写函数
+
+```js
+$(function(){
+    $('div').on({
+        mouseenter:function(){
+
+        },
+        click:function(){
+
+        }
+    })
+})
+```
+
+也有一种写法，第一个参数写上多个事件“字符串”，第二个参数则写上函数
+
+```js
+$('div').on("mouseenter mouseleave",function(){
+	//todo
+})
+```
+
+
+
+### 事件委派机制
+
+可以通过绑定父元素然后实现事件委派，绑定虽然是父元素的身上，但是触发的确是里面的子元素。
+
+```js
+$('ul').on('click','li',function(){
+
+})
+```
+
+on可以对动态创建的元素来绑定事件
+
+当前没有的对象，后面可以绑定上去。
+
+
+
+### off解绑事件
+
+通过off('xxx');可以解绑特定的事件
+
+可以通过这个函数来做一些一次性事件。
+
+
+
+### 自动触发事件
+
+click()
+
+trigger()
+
+triggerHandler()
+
+第三种和其他两种的不同，就是不会触发默认行为（光标闪烁，等等等）。
+
+
+
+### JQuery事件对象
+
+和原生的事件对象是 差不多一致的。
+
+
+
+### JQuery 其他方法
+
+### 拷贝
+
+```js
+var obj;
+$.extend(obj,$('button'));
+```
+
+这样可以吧button对象拷贝给obj
+
+会覆盖obj原有的数据
+
+还有一个参数即深浅拷贝，是可选参数 默认为false（浅拷贝）
+
+深拷贝会把原来的对象里的复杂数据类型，原原本本的复制一份给obj，也就是不只是单单复制地址过去。
+
+浅拷贝则只把地址复制给obj，也就是新对象里的复杂数据类型，会指向原对象的数据类型的地址。
+
+
+
+### JQuery多库共存
+
+有时候有其他库也用上了$符号，当我们想多种库共存的时候，该怎么解决？
+
+统一吧$改成jQuery即可
+
+var f=$.noConflict();
+
+f('div‘)
+
+```js
+var f=$.noConflict();
+
+f('div‘)
+```
+
+这个可以让用户自定义符号
+
+
+
+### JQuery瀑布流
+
+插件使用：
+
+https://www.jq22.com/
+
+http://www.htmleaf.com/
+
+这两个网站可以很方便的找到需要的插件并且使用和下载
+
+
+
+### 图片懒加载
+
+当我们页面滑动到可视区域，即加载图片。什么时候需要，什么时候加载。
+
+可以使用插件来进行实现。
+
+
+
+
+
+### 全屏滚动插件
+
+这个可以用于个人网站 。一屏一屏的滚动
+
+https://www.dowebok.com/demo/2014/77/
+
+中文文档
+
+（待折腾）
+
+
+
+### bootstrap插件
+
+bootstrap也带了很多交互效果，可以导入插件并使用。
+
+
+
+
+
+### JSON.stringify(obj)
+
+这个函数可以将对象转换为json格式。
+
+
+
+那怎么把获得的字符串转回obj呢？
+
+### JSON.parse(String)
+
+可以将json格式转换回对象
+
+
+
+
+
+## 数据可视化
+
+### Echarts的使用和导入
+
+HighCharts和Echarts的区别，相当于office和wps的区别
+
+还有D3.js 等库
+
+接下来我们学习Echarts就好了。
+
+
+
+### 使用
+
+1、我们需要一个容器存放
+
+2、需要一个option
+
+3、最后myChart.setOption(option);
+
+```js
+var myChart = echarts.init(document.querySelector('.box1'));
+var option ={}
+myChart.setOption(option);
+```
+
+
+
+### 配置
+
+配置都在option中修改
+
+![image-20211226163604497](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211226163604497.png)
+
+都在配置项手册当中存放。
+
+我们可以在官网去实时查询。
+
+
+
+#### grid
+
+可以配置图表内的格子的区域
+
+可以通过position来配置位置，和我们的容器区域是不一样的大小的。
+
+
+
+### xAxis 和yAxis
+
+这俩参数可以设置横竖坐标轴的刻度。
+
+### series
+
+系列 列表
+
+
+
+
+
+### 适配方案
+
+felxible.js 使用这个js插件，可以自动检测浏览器的宽度，修改html文字大小。
+
+```js
+<script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+```
+
+引入改文件即可
+
+
+
+同时 可以使用rem插件。
+
+有一个插件可以很好的转换单位：cssrem插件
+
+
+
+再加上flex布局，
+
+即可完成我们的适配方案。
+
+
+
+
+
+```css
+.box1 {
+    width: 7.5rem;
+    height: 400px;
+}
+@media screen and(max-wdith:1024px) {
+    html{
+        font-size: 42.66px !important;
+    }
+}
+@media screen and(max-wdith:1920px) {
+    html{
+        font-size: 80px !important;
+    }
+}
+```
+
+我们把屏幕分成了24等分，并把cssrem的root 的字体大小设置为了80px
+
+通过媒体查询，把最小像素和最大宽度设置为了1024-1920
+
+
+
+### 边框图片
+
+有时候我们在做一些盒子需要同样的图框，就可以用到这个边框图片。
+
+
+
+需要切图，以能够无缝生成边框
+
+![image-20211226185238459](C:\Users\79053\AppData\Roaming\Typora\typora-user-images\image-20211226185238459.png)
+
+repeat用round就可
+
+
+
+
+
+
+
+## 总结
+
+js初级入门就到此为止，
+
+总共六天的学习。
+
+学到了不少关于js的特性。
+
+接下来就通过js高级的教程，来进一步加深js的基础，并且学会js的一些关于es6的新特性。
 
